@@ -1,57 +1,59 @@
 import os
+from http.server import BaseHTTPRequestHandler
 import json
 import stripe
 
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
-
-def handler(event, context):
-    """Vercel serverless function to create a PaymentIntent"""
-    
-    try:
-        # Parse request body
-        body = json.loads(event.get('body', '{}'))
+class handler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
         
-        # Default amount to $4900.50
-        amount = body.get('amount', 490050)
-        currency = body.get('currency', 'usd')
-        
-        # Create PaymentIntent with specific payment methods
-        payment_intent = stripe.PaymentIntent.create(
-            amount=amount,
-            currency=currency,
-            payment_method_types=['us_bank_account', 'card', 'link'],
-            payment_method_options={
-                'us_bank_account': {
-                    'verification_method': 'instant_or_skip'
+        try:
+            # Read request body
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length).decode('utf-8') if content_length > 0 else '{}'
+            data = json.loads(body)
+            
+            # Default amount to $4900.50
+            amount = data.get('amount', 490050)
+            currency = data.get('currency', 'usd')
+            
+            # Create PaymentIntent with specific payment methods
+            payment_intent = stripe.PaymentIntent.create(
+                amount=amount,
+                currency=currency,
+                payment_method_types=['us_bank_account', 'card', 'link'],
+                payment_method_options={
+                    'us_bank_account': {
+                        'verification_method': 'instant_or_skip'
+                    }
+                },
+                metadata={
+                    'customer_name': data.get('customer_name', 'Katy'),
+                    'plan': data.get('plan', 'Protection Coverage')
                 }
-            },
-            metadata={
-                'customer_name': body.get('customer_name', 'Katy'),
-                'plan': body.get('plan', 'Protection Coverage')
-            }
-        )
-        
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type'
-            },
-            'body': json.dumps({
+            )
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            
+            response = {
                 'clientSecret': payment_intent.client_secret,
                 'paymentIntentId': payment_intent.id
-            })
-        }
+            }
+            self.wfile.write(json.dumps(response).encode())
+            
+        except Exception as e:
+            self.send_response(400)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': str(e)}).encode())
     
-    except Exception as e:
-        return {
-            'statusCode': 400,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            'body': json.dumps({'error': str(e)})
-        }
-
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
