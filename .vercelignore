@@ -1,0 +1,28 @@
+# Python
+backend/venv
+backend/__pycache__
+backend/*.pyc
+backend/app.py
+backend/requirements.txt
+
+# Node
+frontend/node_modules
+frontend/.env
+frontend/.env.local
+
+# Development files
+.git
+.DS_Store
+*.log
+yarn-error.log
+
+# Documentation (optional - remove if you want these deployed)
+README.md
+PROJECT_OVERVIEW.md
+QUICKSTART.md
+RAW_ACCOUNT_NUMBERS.md
+
+# Test files
+*.test.js
+*.spec.js
+

@@ -1,0 +1,157 @@
+.completion-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.completion-content {
+  width: 100%;
+  max-width: 500px;
+}
+
+.status-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.status-card h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 20px 0 10px;
+}
+
+.status-card h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 20px 0 10px;
+}
+
+.status-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Icons */
+.success-icon {
+  display: inline-block;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.error-icon {
+  font-size: 64px;
+  margin-bottom: 10px;
+}
+
+.loading-spinner {
+  width: 64px;
+  height: 64px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+/* Payment Details */
+.payment-details {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 30px 0;
+  text-align: left;
+}
+
+/* Account Details */
+.account-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.detail-row:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 16px;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.success-text {
+  color: #00875A;
+  text-transform: capitalize;
+}
+
+/* Button */
+.action-button {
+  width: 100%;
+  padding: 16px 32px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.action-button:hover {
+  background-color: #333;
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .status-card {
+    padding: 40px 30px;
+  }
+
+  .status-card h1,
+  .status-card h2 {
+    font-size: 24px;
+  }
+}
+

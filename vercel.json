@@ -1,0 +1,24 @@
+{
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/api/config",
+      "destination": "/backend/api/config.py"
+    },
+    {
+      "source": "/api/create-payment-intent",
+      "destination": "/backend/api/create-payment-intent.py"
+    },
+    {
+      "source": "/api/payment-intent",
+      "destination": "/backend/api/payment-intent.py"
+    },
+    {
+      "source": "/api/raw-account",
+      "destination": "/backend/api/raw-account.py"
+    }
+  ]
+}
+
