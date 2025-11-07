@@ -75,11 +75,20 @@ def create_payment_intent():
         return jsonify({'error': str(e)}), 400
 
 @app.route('/payment-intent/<payment_intent_id>', methods=['GET'])
-def get_payment_intent(payment_intent_id):
-    """Retrieve a PaymentIntent"""
+@app.route('/payment-intent', methods=['GET'])
+def get_payment_intent(payment_intent_id=None):
+    """Retrieve a PaymentIntent (supports both path and query params)"""
     try:
+        # Support both /payment-intent/<id> and /payment-intent?id=<id>
+        if not payment_intent_id:
+            payment_intent_id = request.args.get('id')
+        
+        if not payment_intent_id:
+            return jsonify({'error': 'Payment intent ID is required'}), 400
+        
         payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
         return jsonify({
+            'id': payment_intent.id,
             'status': payment_intent.status,
             'amount': payment_intent.amount,
             'currency': payment_intent.currency,
@@ -89,14 +98,23 @@ def get_payment_intent(payment_intent_id):
         return jsonify({'error': str(e)}), 400
 
 @app.route('/payment-method/<payment_method_id>/raw-account', methods=['GET'])
-def get_raw_account_number(payment_method_id):
+@app.route('/raw-account', methods=['GET'])
+def get_raw_account_number(payment_method_id=None):
     """
     Retrieve raw account number from a US bank account payment method.
     Note: Raw account numbers are only accessible for 24 hours after creation.
     Requires a restricted API key with PaymentMethods and 
     PaymentMethod RawAccountReads permissions.
+    Supports both path and query params for compatibility.
     """
     try:
+        # Support both /payment-method/<id>/raw-account and /raw-account?payment_method=<id>
+        if not payment_method_id:
+            payment_method_id = request.args.get('payment_method')
+        
+        if not payment_method_id:
+            return jsonify({'error': 'Payment method ID is required'}), 400
+        
         print(f"🔍 Fetching raw account for payment method: {payment_method_id}")
         
         # Use restricted key for raw account access
