@@ -1,0 +1,42 @@
+COPY AND PASTE THESE EXACT VARIABLE NAMES INTO VERCEL:
+================================================================
+
+Variable 1:
+-----------
+Name:  STRIPE_PUBLISHABLE_KEY
+Value: pk_test_51QH6W0ElsNEGhtB83GCza2ktz54eeCHH4FRS1zAh4HYcMpmoN2MP9rjb6QQYH9MmKS6RlmjtaRKnJsc6JYw47yNb00RX2UOwmF
+
+
+Variable 2:
+-----------
+Name:  STRIPE_SECRET_KEY
+Value: sk_test_51QH6W0ElsNEGhtB8ZnISgYgDTl7A7IXvv5HI0IvVqnDY4tHsQ1w3FjK0xQwoVTuRxWK7ePa0bJEgudFPRbVclDc20079P1XPRH
+
+
+Variable 3:
+-----------
+Name:  STRIPE_RESTRICTED_KEY
+Value: rk_test_51QH6W0ElsNEGhtB8qdW468XxQbJkGG0V2wHgWR1arYGUkEpHWFzvpl4i2DCTFHb54jCjuNzsPlCBUr4K8AUQUgPd00VezEDJ4O
+
+
+Variable 4:
+-----------
+Name:  VITE_API_URL
+Value: /api
+
+
+================================================================
+IMPORTANT NOTES:
+================================================================
+
+1. NO SPACES in variable names (should be one word with underscores)
+2. NO QUOTES around the values
+3. Make sure ALL environments are selected:
+   ☑️ Production
+   ☑️ Preview  
+   ☑️ Development
+
+4. Click "Add" after EACH variable before adding the next one
+
+5. If the error persists, try adding them ONE AT A TIME instead of all at once
+
