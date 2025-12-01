@@ -119,7 +119,12 @@ function CheckoutPage() {
                     radios: true,
                     spacedAccordionItems: true
                   },
-                  paymentMethodOrder: ['us_bank_account', 'card', 'link']
+                  fields: {billingDetails: {name:"never"},
+                    email: {required: "never"},
+                    phone: {required: "never"},
+                    address: {required: "never"},
+                    paymentMethodOrder: ['us_bank_account', 'card', 'link']
+                  }
                 }}
               />
             </div>
